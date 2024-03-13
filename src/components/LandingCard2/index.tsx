@@ -3,8 +3,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingCard2() {
+  const navigate = useNavigate();
+
+  const hanldeClickCard = () => {
+    navigate("/blog");
+  };
+
   return (
     <Container
       maxWidth="lg"
@@ -17,7 +24,18 @@ export default function LandingCard2() {
         gap: "30px",
       }}
     >
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          minHeight: "430px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+        onClick={hanldeClickCard}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\reason1.jpg" alt="green iguana" />
           <CardContent>
@@ -29,7 +47,17 @@ export default function LandingCard2() {
         </CardActionArea>
       </Card>
 
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+        onClick={hanldeClickCard}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\reason3.jpg" alt="green iguana" />
           <CardContent>
@@ -40,7 +68,17 @@ export default function LandingCard2() {
         </CardActionArea>
       </Card>
 
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+        onClick={hanldeClickCard}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\reason2.jpg" alt="green iguana" />
           <CardContent>

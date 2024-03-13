@@ -6,7 +6,6 @@ import { Button, CardActionArea, Container } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
-
 export default function LandingCard() {
   return (
     <Container
@@ -59,6 +58,18 @@ export default function LandingCard() {
           },
         }}
       >
+        <Box sx={{ position: "relative" }}>
+          <Box sx={{ position: "absolute", top: 0, right: 0, zIndex: 100, borderRadius: "50%", overflow: "hidden" }}>
+            {" "}
+            <img
+              src="https://thumbs.dreamstime.com/b/set-vector-gold-stars-icon-best-seller-gold-star-icon-templa-illustration-template-60476772.jpg"
+              height={120}
+              alt=""
+              // eslint-disable-next-line react/no-unknown-property
+            />
+          </Box>
+        </Box>
+
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\health.png" alt="green iguana" />
           <CardContent>
