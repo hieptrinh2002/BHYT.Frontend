@@ -16,6 +16,9 @@ import ChangePassword from "./pages/ChangePassword";
 import InsuranceRegister from "./pages/InsuranceRegister";
 import InsuranceRegister2 from "./pages/InsuranceRegister2";
 import Option from "./pages/Option";
+import BusinessConsultationForm from "./components/BusinessConsultationForm";
+import InsuranceTab from "./pages/InsuranceTab";
+
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -36,6 +39,8 @@ function Routes() {
       <Route path="/register-insurance-1" element={<InsuranceRegister />} />
       <Route path="/register-insurance-2" element={<InsuranceRegister2 />} />
       <Route path="/option" element={<Option />} />
+      <Route path="/business" element={<BusinessConsultationForm />} />
+      <Route path="/health-insurance/tab" element={<InsuranceTab />} />
     </ReactRouterDomRoutes>
   );
 }

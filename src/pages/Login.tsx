@@ -13,7 +13,6 @@ import {
   IconButton,
 } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
-import Title from "../components/Title";
 import LoginImage from "../assets/images/login.png";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useFormik } from "formik";
@@ -50,10 +49,14 @@ function Login(): JSX.Element {
   });
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+      }}
+    >
       {account && <Navigate to="/" />}
-      <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title>
-      <Box sx={{ display: "flex", mt: 5, px: 5 }}>
+      {/* <Title title="Đăng nhập" path="Trang chủ / Đăng nhập"></Title> */}
+      <Box sx={{ display: "flex", my: 5, px: 5 }}>
         <Container>
           <img src={LoginImage} className="App-logo" alt="logo" />
         </Container>
@@ -111,7 +114,7 @@ function Login(): JSX.Element {
               />
               <Link
                 to="/forgot-password/otp"
-                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2, mt: 2 }}
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
               >
                 <FormControlLabel control={<Checkbox defaultChecked />} label="ghi nhớ mật khẩu" />
                 <Typography

@@ -2,14 +2,17 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, Container } from "@mui/material";
+import { Button, CardActionArea, Container } from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
 
 export default function LandingCard() {
   return (
     <Container
       maxWidth="lg"
       sx={{
-        margin: "20px 0 20px 0",
+        margin: "40px 0 40px 0",
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
@@ -17,7 +20,16 @@ export default function LandingCard() {
         gap: "30px",
       }}
     >
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\savemoney.png" alt="green iguana" />
           <CardContent>
@@ -29,9 +41,24 @@ export default function LandingCard() {
             </Typography>
           </CardContent>
         </CardActionArea>
+        <Box width="100%" sx={{ display: "flex", justifyContent: "right" }}>
+          <Button to="/health-insurance/tab" component={Link}>
+            xem ngay
+            <ArrowForwardIosIcon />
+          </Button>
+        </Box>
       </Card>
 
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\health.png" alt="green iguana" />
           <CardContent>
@@ -39,13 +66,28 @@ export default function LandingCard() {
               Bảo hiểm Sức khỏe
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Nhiều dự án góp phần vào sự phát triển và nâng cao sức khỏe cộng đồng từ Sun Life Việt Nam
+              Nhiều dự án góp phần vào sự phát triển và nâng cao sức khỏe cộng đồng từ Vina Life Việt Nam
             </Typography>
           </CardContent>
         </CardActionArea>
+        <Box width="100%" sx={{ display: "flex", justifyContent: "right" }}>
+          <Button to="/health-insurance/tab" component={Link}>
+            xem ngay
+            <ArrowForwardIosIcon />
+          </Button>
+        </Box>
       </Card>
 
-      <Card sx={{ minWidth: "325px", maxWidth: "325px" }}>
+      <Card
+        sx={{
+          minWidth: "325px",
+          maxWidth: "325px",
+          transition: "transform 0.3s",
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        }}
+      >
         <CardActionArea>
           <CardMedia component="img" height="300" image="src\assets\images\travel.png" alt="green iguana" />
           <CardContent>
@@ -53,10 +95,16 @@ export default function LandingCard() {
               Giải pháp hưu trí
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Những trải nghiệm của Khách hàng khi tham gia Bảo hiểm Nhân thọ Sun Life
+              Những trải nghiệm của Khách hàng khi tham gia Bảo hiểm Nhân thọ Vina Life
             </Typography>
           </CardContent>
         </CardActionArea>
+        <Box width="100%" sx={{ display: "flex", justifyContent: "right" }}>
+          <Button to="/health-insurance/tab" component={Link}>
+            xem ngay
+            <ArrowForwardIosIcon />
+          </Button>
+        </Box>
       </Card>
     </Container>
   );

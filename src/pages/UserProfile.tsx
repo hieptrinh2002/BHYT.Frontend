@@ -55,10 +55,10 @@ export default function UserProfile() {
           width: "250px",
           marginTop: "50px",
           marginBottom: "50px",
-          marginRight: "50px",
+          // marginRight: "50px",
         }}
       >
-        <Tab label="Thôn tin chung" {...a11yProps(0)} />
+        <Tab label="Thông tin chung" {...a11yProps(0)} />
         <Tab label="Chỉ số sức khỏe" {...a11yProps(1)} />
         <Tab label="Bảo hiểm của tôi" {...a11yProps(2)} />
         <Tab label="Tài khoản" {...a11yProps(3)} />

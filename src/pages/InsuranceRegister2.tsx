@@ -1,13 +1,15 @@
 import InsuranceForm2 from "../components/InsuranceForm2";
-import { Typography, Container } from "@mui/material";
+import { Typography, Container, Paper } from "@mui/material";
 
 function InsuranceRegister2(): JSX.Element {
   return (
-    <Container>
-      <Typography variant="h4" fontWeight={600} sx={{ textAlign: "center", marginTop: "20px" }} gutterBottom>
-        Phiếu sức khỏe
-      </Typography>
-      <InsuranceForm2 />
+    <Container sx={{ marginBottom: "3rem", marginTop: "2rem" }}>
+      <Paper elevation={3}>
+        <Typography variant="h4" fontWeight={600} sx={{ textAlign: "center", padding: "2rem" }} gutterBottom>
+          Phiếu sức khỏe
+        </Typography>
+        <InsuranceForm2 />
+      </Paper>
     </Container>
   );
 }

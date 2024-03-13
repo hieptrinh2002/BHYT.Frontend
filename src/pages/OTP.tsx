@@ -35,23 +35,6 @@ export default function OTP(): JSX.Element {
         data: data,
       },
     });
-    // const data = {
-    //   userId: userId,
-    //   resetCode: codeOtp,
-    //   newPassword: password,
-    // };
-    // resetPassword(data)
-    //   .then((res: any) => {
-    //     if (res) {
-    //       alert("Password reset")
-    //       navigate('/login')
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     if (err.response.data.message) {
-    //       alert(err.response.data.message)
-    //     }
-    //   })
   };
 
   const handleCheckOTP = () => {
@@ -87,6 +70,7 @@ export default function OTP(): JSX.Element {
 
   return (
     <Box
+      my={5}
       sx={{
         display: "flex",
         justifyContent: "space-evenly",

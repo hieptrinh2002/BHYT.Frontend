@@ -17,6 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../app/store";
 import * as compensationServices from "../services/compensationServices";
+import InputFileUpload from "../components/InputFileUpload";
 const steps = [
   {
     label: "Quy định về thời gian gửi yêu cầu và phí bồi thường",
@@ -250,6 +251,10 @@ export default function CompensationRequest() {
                 {...formik.getFieldProps("note")}
               />
             </Stack>
+            <Stack spacing={3} direction="row" sx={{ mb: 4 }}>
+              <InputFileUpload />
+            </Stack>
+
             <Stack spacing={3} direction="row" sx={{ marginBottom: 4 }}>
               <RadioGroup
                 itemType="number"

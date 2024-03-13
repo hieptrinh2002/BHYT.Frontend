@@ -2,9 +2,13 @@ import { Slide } from "@mui/material";
 import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { MessageText, PromotionsContainer } from "../../styles/quotes";
+export interface IQuotes {
+  messages: string[];
+}
 
-const messages = ["VINA Life- Vững vàng", "VINA Life- Sống mới", "Kế hoạch lạc quan"];
-export default function Quotes() {
+export default function Quotes(props: IQuotes) {
+  const { messages } = props;
+
   const containerRef = useRef();
   const [show, setShow] = useState(true);
   const [messageIndex, setMessageIndex] = useState(0);
@@ -41,7 +45,7 @@ export default function Quotes() {
         }}
       >
         <Box display="flex" justifyContent="center" alignItems="center">
-          <MessageText>{messages[messageIndex]}</MessageText>
+          <MessageText fontSize={"30px"}>{messages[messageIndex]}</MessageText>
         </Box>
       </Slide>
     </PromotionsContainer>

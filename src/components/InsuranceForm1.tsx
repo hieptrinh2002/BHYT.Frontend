@@ -86,7 +86,7 @@ function InsuranceForm1(): JSX.Element {
         }}
       >
         <Form>
-          <Grid container spacing={2}>
+          <Grid container spacing={5}>
             <Grid item xs={12}>
               <Typography variant="h6">Thông tin cá nhân</Typography>
             </Grid>
