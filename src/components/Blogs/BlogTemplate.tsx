@@ -11,7 +11,6 @@ import FeaturedPost from "./FeaturedPost";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 import { useEffect } from "react";
-
 const sections = [
   { title: "Technology", url: "#" },
   { title: "Design", url: "#" },

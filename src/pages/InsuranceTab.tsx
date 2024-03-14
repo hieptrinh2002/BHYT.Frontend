@@ -1,18 +1,37 @@
-import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import HealthItemCard from "../components/HealthItemCard";
+import * as insuranceServices from "../services/insuranceServices";
+
+import { useEffect, useState } from "react";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
+interface IInsurance {
+  id: number;
+  guid?: string;
+  name?: string;
+  description?: string;
+  insuranceTypeId?: number;
+  startAge?: number;
+  endAge?: number;
+  price?: number;
+  subInsuranceTypeName?: string;
+  slogan?: string;
+}
+type InsuranceArray = IInsurance[];
+
+type InsuranceArray2 = InsuranceArray[];
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Box
       role="tabpanel"
@@ -38,10 +57,24 @@ function a11yProps(index: number) {
 }
 
 export default function InsuranceTab() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [insurances, setInsurances] = useState<InsuranceArray2>([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+  useEffect(() => {
+    void getCustomerList();
+  }, []);
+
+  const getCustomerList = async () => {
+    try {
+      const response = await insuranceServices.getListInsurace();
+      setInsurances(response);
+      console.log(response);
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -78,36 +111,27 @@ export default function InsuranceTab() {
           }}
         >
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Sức khỏe" {...a11yProps(0)} />
-            <Tab label="Tai nạn" {...a11yProps(1)} />
-            <Tab label="Gia tăng bảo vệ " {...a11yProps(2)} />
+            {insurances.map((row: InsuranceArray, index: number) => (
+              <Tab key={index} label={row[0].subInsuranceTypeName} {...a11yProps(index)} />
+            ))}
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          Item Two
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-          <br></br>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          Item Three
-          <HealthItemCard />
-          <br></br>
-          <HealthItemCard />
-          <br></br>
-        </CustomTabPanel>
+        {insurances.map((row: InsuranceArray, index: number) => (
+          <CustomTabPanel key={index} value={value} index={index}>
+            {row.map((card: IInsurance, indexCard: number) => (
+              <Box key={indexCard}>
+                <HealthItemCard
+                  title={card.name}
+                  subheader={card.subInsuranceTypeName}
+                  slogan={card.slogan}
+                  description={card.description}
+                  insuranceId={card.id}
+                />
+                <br></br>
+              </Box>
+            ))}
+          </CustomTabPanel>
+        ))}
       </Box>
     </Box>
   );

@@ -65,7 +65,6 @@ export default function LandingCard() {
               src="https://thumbs.dreamstime.com/b/set-vector-gold-stars-icon-best-seller-gold-star-icon-templa-illustration-template-60476772.jpg"
               height={120}
               alt=""
-              // eslint-disable-next-line react/no-unknown-property
             />
           </Box>
         </Box>

@@ -97,8 +97,8 @@ function Header(): JSX.Element {
             </IconButton>
             <p>Notifications</p>
           </MenuItem>
-          <Button color="inherit" component={Link} to="/">
-            Trang chủ
+          <Button color="inherit" component={Link} to="/consultingRegistration/client">
+            Hỗ trợ
           </Button>
           <Button color="inherit">
             Tìm hiểu

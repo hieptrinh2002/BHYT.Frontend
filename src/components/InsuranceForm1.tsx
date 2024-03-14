@@ -147,8 +147,8 @@ function InsuranceForm1(): JSX.Element {
               />
             </Grid>
 
-            <Grid item xs={12} sx={{ marginBottom: "50px" }}>
-              <Button color="primary">Tiếp theo</Button>
+            <Grid item xs={12} py={5} sx={{ marginBottom: "50px" }}>
+              <Button color="primary">Gửi</Button>
             </Grid>
           </Grid>
         </Form>
