@@ -40,9 +40,12 @@ interface IHealthItemCardProps {
   slogan: string | undefined;
   insuranceId: number | undefined;
   description: string | undefined;
+  price: number | undefined;
+  startAge: number | undefined;
+  endAge: number | undefined;
 }
 export default function HealthItemCard(props: IHealthItemCardProps) {
-  const { title, subheader, slogan, description } = props;
+  const { title, subheader, slogan, description, insuranceId } = props;
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -63,7 +66,7 @@ export default function HealthItemCard(props: IHealthItemCardProps) {
       />
       {/* <CardMedia component="img" height="194" image="/static/images/cards/paella.jpg" alt="Paella dish" /> */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           {slogan}
         </Typography>
       </CardContent>
@@ -78,7 +81,7 @@ export default function HealthItemCard(props: IHealthItemCardProps) {
           <ExpandMoreIcon />
         </ExpandMore>
         <Box width="100%" sx={{ display: "flex", justifyContent: "right" }}>
-          <Button to="/health-insurance/tab?=" component={Link}>
+          <Button to={`/health-insurance/info/${insuranceId}`} component={Link}>
             xem ngay
             <ArrowForwardIosIcon />
           </Button>

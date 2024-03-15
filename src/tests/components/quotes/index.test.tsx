@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Quotes from "../../../components/quotes";
+import Quotes from "../../../components/Quotes";
 
 test("Quotes mounts properly", () => {
   render(<Quotes />);

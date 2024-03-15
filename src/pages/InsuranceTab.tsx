@@ -42,7 +42,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography mx={5}>{children}</Typography>
         </Box>
       )}
     </Box>
@@ -126,6 +126,9 @@ export default function InsuranceTab() {
                   slogan={card.slogan}
                   description={card.description}
                   insuranceId={card.id}
+                  price={card.price}
+                  startAge={card.startAge}
+                  endAge={card.endAge}
                 />
                 <br></br>
               </Box>

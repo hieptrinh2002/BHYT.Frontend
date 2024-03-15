@@ -1,7 +1,7 @@
 import { Typography, Container, Grid } from "@mui/material";
 import top2024img from "../assets/images/top2024.jpg";
 import Banner from "../components/Banner";
-import Quotes from "../components/quotes";
+import Quotes from "../components/Quotes";
 import LandingCard from "../components/LandingCard";
 import LandingCard2 from "../components/LandingCard2";
 import { Box } from "@mui/system";

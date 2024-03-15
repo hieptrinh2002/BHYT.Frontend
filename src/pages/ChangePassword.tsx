@@ -1,6 +1,5 @@
 import { Box, FormGroup, TextField, Typography, Button, Divider, Container, IconButton } from "@mui/material";
 //import { Link } from "react-router-dom";
-import Title from "../components/Title";
 import LoginImage from "../assets/images/login.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -75,7 +74,6 @@ function ForgotPassword(): JSX.Element {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Title title="Quên mật khẩu" path="Trang chủ / Quên mật khẩu"></Title>
       <Box sx={{ display: "flex", mt: 5, px: 5 }}>
         <Container>
           <img src={LoginImage} className="App-logo" alt="logo" />

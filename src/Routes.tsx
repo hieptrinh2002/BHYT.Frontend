@@ -1,7 +1,7 @@
 import { Route, Routes as ReactRouterDomRoutes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Register from "./pages/SignUp";
 import OTP from "./pages/OTP";
 import PaymentRequests from "./pages/PaymentRequests";
 import InsuranceApproval from "./pages/employee/InsuranceApproval";
@@ -14,11 +14,14 @@ import CustomerCompensations from "./pages/CustomerCompensations";
 import CompensationApproval from "./pages/employee/CompensationApproval";
 import ChangePassword from "./pages/ChangePassword";
 import InsuranceRegister from "./pages/InsuranceRegister";
-import InsuranceRegister2 from "./pages/InsuranceRegister2";
+import InsuranceRegister2New from "./pages/InsuranceRegister2";
+
 import Option from "./pages/Option";
 import InsuranceTab from "./pages/InsuranceTab";
 import Blog from "./components/Blogs/BlogTemplate";
 import ConsultingRegistration from "./pages/ConsultingRegistration";
+import InsuranceInformation from "./pages/insuranceInformation";
+
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -36,11 +39,12 @@ function Routes() {
       <Route path="/employee/list-payment-request" element={<AllPaymentRequests />} />
       <Route path="/employee/list-customer" element={<CustomerList />} />
       <Route path="/change-password" element={<ChangePassword />} />
-      <Route path="/register-insurance-1" element={<InsuranceRegister />} />
-      <Route path="/register-insurance-2" element={<InsuranceRegister2 />} />
+      <Route path="/insurance/register/:id/info-form" element={<InsuranceRegister />} />
+      <Route path="/insurance/register/:id/health-form" element={<InsuranceRegister2New />} />
       <Route path="/option" element={<Option />} />
       <Route path="/health-insurance/tab" element={<InsuranceTab />} />
-      <Route path="/consultingRegistration/client" element={<ConsultingRegistration />} />
+      <Route path="/health-insurance/info/:id" element={<InsuranceInformation />} />
+      <Route path="/consulting-registration/client" element={<ConsultingRegistration />} />
       <Route path="/blog" element={<Blog title={"Blog"} />} />
     </ReactRouterDomRoutes>
   );

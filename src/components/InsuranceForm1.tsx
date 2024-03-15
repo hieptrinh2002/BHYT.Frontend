@@ -1,159 +1,256 @@
-import { useNavigate } from "react-router-dom";
-import { Container, Grid, Typography } from "@mui/material";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import TextField from "./FormsUI/TextField";
-import Select from "./FormsUI/Select";
-import DateTimePicker from "./FormsUI/DateTimePicker";
-import Checkbox from "./FormsUI/Checkbox";
-import Button from "./FormsUI/Button";
-// import {Button} from "@mui/material";
-import countries from "./data/countries.json";
-import gender from "./data/gender.json";
+import { CheckBox } from "@mui/icons-material";
+import {
+  Alert,
+  Button,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Box, Container, Stack } from "@mui/system";
+import { useState, useEffect } from "react";
 import { useStore } from "../app/store";
-import * as insuranceRegisterServices from "../services/insuranceRegisterServices";
+import * as userServices from "../services/userServices";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { format } from "date-fns";
+import * as bankServices from "../services/bankServices";
+import { useNavigate, useParams } from "react-router-dom";
+interface UserInformation {
+  id: number;
+  fullname: string;
+  address: string;
+  phone: string;
+  birthday: Date;
+  sex: number;
+  email: string;
+  bankNumber: string | 0;
+  bank: string | 0;
+}
 
-const FORM_VALIDATION = Yup.object().shape({
-  fullName: Yup.string().required("Yêu cầu nhập thông tin này"),
-
-  sex: Yup.string().required("Yêu cầu nhập thông tin này"),
-  birthday: Yup.date().required("Yêu cầu nhập trường này"),
-  email: Yup.string().email("Email không hợp lệ").required("Yêu cầu nhập thông tin này"),
-  phone: Yup.number().integer().typeError("Vui lòng nhập số điện thoại hợp lệ").required("Yêu cầu nhập thông tin này"),
-  addressLine1: Yup.string().required("Yêu cầu nhập thông tin này"),
-  addressLine2: Yup.string(),
-  city: Yup.string().required("Yêu cầu nhập thông tin này"),
-  state: Yup.string().required("Yêu cầu nhập thông tin này"),
-  country: Yup.string().required("Yêu cầu nhập thông tin này"),
-  message: Yup.string(),
-  termsOfService: Yup.boolean()
-    .oneOf(
-      [true],
-      "Bạn đã đọc rõ và chấp nhận cung cấp thông tin. Chúng tôi cam kết không cung cấp thông tin của bạn cho bên thứ ba"
-    )
-    .required(
-      "Bạn đã đọc rõ và chấp nhận cung cấp thông tin. Chúng tôi cam kết không cung cấp thông tin của bạn cho bên thứ ba"
-    ),
-});
-
-function InsuranceForm1(): JSX.Element {
+export default function GeneralProfile(): JSX.Element {
+  const [userProfile, setUserProfile] = useState<UserInformation>();
+  const [banks, setBannks] = useState<any>(null);
   const navigate = useNavigate();
-  const { account } = useStore((state) => state);
+  const account = useStore((state: any) => state.account);
+  const { id } = useParams();
+  const formik = useFormik({
+    initialValues: {
+      id: -1,
+      fullname: "",
+      address: "",
+      phone: "",
+      birthday: "",
+      sex: 1,
+      email: "",
+      bankNumber: "",
+      bank: "",
+    },
+    validationSchema: Yup.object({
+      fullname: Yup.string().required(
+        "Họ tên và số điện thoại không được để trống, vui lòng điền đầy đủ vào cả 2 trường này!"
+      ),
+    }),
 
-  const INITIAL_FORM_STATE = {
-    id: account?.id,
-    fullName: "",
-    sex: 0,
-    birthday: "",
-    email: "",
-    phone: "",
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    state: "",
-    country: "",
-    message: "",
-    termsOfService: false,
+    onSubmit: async (values) => {
+      try {
+        const res = await userServices.updateProfile(values);
+        alert(res.message);
+        navigate(`/insurance/register/${id}/health-form`);
+      } catch (error) {
+        console.log("update profile Failed");
+      }
+    },
+  });
+
+  useEffect(() => {
+    void getBankIn4();
+  }, []);
+
+  useEffect(() => {
+    if (account) {
+      void getUserProfile(account.id);
+    } else {
+      alert("Bạn cần đăng nhập trước khi đăng kí bảo hiểm !");
+      navigate("/login");
+    }
+  }, [account]);
+
+  const getBankIn4 = async () => {
+    try {
+      const response = await bankServices.getBankInfor();
+      console.log(response);
+      setBannks(response);
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const getUserProfile = async (id: number) => {
+    try {
+      const response = await userServices.getProfile(id);
+      setUserProfile(response);
+      void formik.setValues({
+        id: response.id,
+        fullname: response.fullname || "",
+        address: response.address || "",
+        phone: response.phone || "",
+        birthday: response.birthday ? format(new Date(response.birthday), "yyyy-MM-dd") : "",
+        sex: response.sex || undefined,
+        email: response.email || "",
+        bankNumber: response.bankNumber || "",
+        bank: response.bank || "",
+      });
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
 
   return (
-    <Container maxWidth="md">
-      <Formik
-        initialValues={{
-          ...INITIAL_FORM_STATE,
-        }}
-        validationSchema={FORM_VALIDATION}
-        onSubmit={async (values) => {
-          console.log(values);
-          const data = {
-            id: values.id,
-            fullName: values.fullName,
-            sex: Number(values.sex),
-            birthday: values.birthday,
-            email: values.email,
-            phone: values.phone,
-            address: values.addressLine1 + ", " + values.city + ", " + values.country,
-            bankNumber: "",
-            bank: "",
-          };
-          console.log(data);
-          try {
-            await insuranceRegisterServices.createInsuranceRegister(data);
-            navigate(`/option`);
-          } catch (error: any) {
-            alert(error.message);
-          }
-        }}
-      >
-        <Form>
-          <Grid container spacing={5}>
-            <Grid item xs={12}>
-              <Typography variant="h6">Thông tin cá nhân</Typography>
-            </Grid>
+    <Box py={3} borderRadius={2} px={10} boxShadow={"8px 8px 8px rgba(79,79,79,.25)"}>
+      <Typography variant="h6">Thông tin chung cá nhân</Typography>
+      <Divider sx={{ width: "100%" }} />
 
-            <Grid item xs={12}>
-              <TextField name="fullName" label="Họ và tên" />
-            </Grid>
-
-            <Grid item xs={6}>
-              <Select name="sex" label="Giới tính" options={gender} />
-            </Grid>
-
-            <Grid item xs={6}>
-              <DateTimePicker name="birthday" label="Ngày sinh" />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField name="email" label="Email" />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField name="phone" label="Số điện thoại" />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography variant="h6">Địa chỉ</Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField name="addressLine1" label="Địa chỉ" />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField name="addressLine2" label="Địa chỉ khác" />
-            </Grid>
-
-            <Grid item xs={6}>
-              <TextField name="city" label="Thành phố" />
-            </Grid>
-
-            <Grid item xs={6}>
-              <TextField name="state" label="Tỉnh" />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Select name="country" label="Quốc gia" options={countries} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField name="message" label="Khác" multiline={true} rows={4} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Checkbox
-                name="termsOfService"
-                legend="Yêu cầu về điều khoản"
-                label="Tôi đồng ý chấp nhận các điều khoản về cung cấp thông tin cá nhân."
-              />
-            </Grid>
-
-            <Grid item xs={12} py={5} sx={{ marginBottom: "50px" }}>
-              <Button color="primary">Gửi</Button>
-            </Grid>
-          </Grid>
-        </Form>
-      </Formik>
-    </Container>
+      {userProfile && (
+        <Container sx={{ marginTop: "3rem", marginBottom: "3rem" }}>
+          <Box sx={{ mx: 5 }}>
+            <form onSubmit={formik.handleSubmit}>
+              {formik.errors.fullname && formik.touched.fullname && (
+                <Alert severity="error">
+                  <strong>{formik.errors.fullname}</strong>
+                </Alert>
+              )}
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Họ Tên"
+                  fullWidth
+                  required
+                  {...formik.getFieldProps("fullname")}
+                  onChange={formik.handleChange}
+                />
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Số Điện Thoại"
+                  fullWidth
+                  required
+                  {...formik.getFieldProps("phone")}
+                  onChange={formik.handleChange}
+                />
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <TextField
+                  type="Date"
+                  variant="outlined"
+                  label="Ngày Sinh"
+                  fullWidth
+                  required
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  {...formik.getFieldProps("birthday")}
+                  onChange={formik.handleChange}
+                />
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Tình trạng tài khoản"
+                  fullWidth
+                  disabled
+                  required
+                  defaultValue={"Active"}
+                />
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ mb: 4 }}>
+                <TextField
+                  type="email"
+                  variant="outlined"
+                  label="Email"
+                  required
+                  fullWidth
+                  {...formik.getFieldProps("email")}
+                  onChange={formik.handleChange}
+                />
+                <FormControl fullWidth>
+                  <InputLabel id="adress-select-label">Giới tính</InputLabel>
+                  <Select
+                    labelId="adress-select-label"
+                    id="adress-select"
+                    label="Giới tính"
+                    required
+                    {...formik.getFieldProps("sex")}
+                    onChange={formik.handleChange}
+                  >
+                    <MenuItem value={1}>Nam</MenuItem>
+                    <MenuItem value={0}>Nữ</MenuItem>
+                  </Select>
+                </FormControl>
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  label="Số tài khoản"
+                  fullWidth
+                  required
+                  {...formik.getFieldProps("bankNumber")}
+                  onChange={formik.handleChange}
+                />
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="adress-select-label">Ngân Hàng</InputLabel>
+                  <Select
+                    labelId="adress-select-label"
+                    id="adress-select"
+                    label="Ngân hàng"
+                    {...formik.getFieldProps("bank")}
+                    onChange={formik.handleChange}
+                  >
+                    {banks.map((row: any, index: any) => {
+                      return (
+                        <MenuItem key={index} value={row.short_name}>
+                          {row.name + "   "} {`(${row.short_name})`}
+                          <img src={row.logo} alt="logo" width={80} height={35} />
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ mb: 4 }}>
+                <TextField
+                  label="Địa chỉ"
+                  multiline
+                  rows={3}
+                  fullWidth
+                  required
+                  {...formik.getFieldProps("address")}
+                  onChange={formik.handleChange}
+                />
+              </Stack>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
+                <FormControlLabel control={<CheckBox />} label="" />
+                <Typography variant="body1">
+                  Tôi đồng ý cho BHYT Life Việt Nam sử dụng thông tin được cung cấp trên đây để phê duyệt và phân tích
+                  chính sách bảo hiểm và dùng làm thông tin cá nhân <a href="#">Tìm hiểu thêm.</a>
+                </Typography>
+              </Stack>
+              <Button variant="outlined" color="secondary" type="submit" sx={{ px: "4rem", py: 1 }}>
+                Cập nhật & tiếp tục
+              </Button>
+            </form>
+          </Box>
+        </Container>
+      )}
+    </Box>
   );
 }
-export default InsuranceForm1;

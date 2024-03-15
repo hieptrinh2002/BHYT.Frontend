@@ -125,7 +125,7 @@ export default function GeneralProfile(): JSX.Element {
                   <strong>{formik.errors.fullname}</strong>
                 </Alert>
               )}
-              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="text"
                   variant="outlined"
@@ -145,7 +145,7 @@ export default function GeneralProfile(): JSX.Element {
                   onChange={formik.handleChange}
                 />
               </Stack>
-              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="Date"
                   variant="outlined"
@@ -193,7 +193,7 @@ export default function GeneralProfile(): JSX.Element {
                   </Select>
                 </FormControl>
               </Stack>
-              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="text"
                   variant="outlined"
@@ -234,7 +234,7 @@ export default function GeneralProfile(): JSX.Element {
                   onChange={formik.handleChange}
                 />
               </Stack>
-              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ marginBottom: 6 }}>
                 <FormControlLabel control={<CheckBox />} label="" />
                 <Typography variant="body1">
                   Tôi đồng ý cho BHYT Life Việt Nam sử dụng thông tin được cung cấp trên đây để phê duyệt và phân tích

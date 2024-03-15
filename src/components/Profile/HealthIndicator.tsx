@@ -99,7 +99,7 @@ export default function HealthIndicator(): JSX.Element {
         <Container sx={{ marginTop: "3rem", marginBottom: "3rem" }}>
           <Box sx={{ mx: 5 }}>
             <form onSubmit={formik.handleSubmit}>
-              <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack spacing={2} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="number"
                   color="secondary"
@@ -127,7 +127,7 @@ export default function HealthIndicator(): JSX.Element {
                   onChange={formik.handleChange}
                 />
               </Stack>
-              <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack spacing={2} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="number"
                   color="secondary"
@@ -155,7 +155,7 @@ export default function HealthIndicator(): JSX.Element {
                 />
               </Stack>
 
-              <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+              <Stack spacing={2} direction="row" sx={{ marginBottom: 6 }}>
                 <TextField
                   type="text"
                   label="Bệnh trước đó"
@@ -168,7 +168,7 @@ export default function HealthIndicator(): JSX.Element {
                 />
               </Stack>
               <MultipleSelectChip sendDiseases={updateDiseases}></MultipleSelectChip>
-              <Stack spacing={2} direction="row" sx={{ marginBottom: 4, marginTop: 4 }}>
+              <Stack spacing={2} direction="row" sx={{ marginBottom: 6, marginTop: 4 }}>
                 <FormControlLabel control={<CheckBox />} label="" />
                 <Typography variant="body1">
                   Tôi đồng ý cho BHYT Life Việt Nam sử dụng thông tin được cung cấp trên đây để phê duyệt và phân tích
