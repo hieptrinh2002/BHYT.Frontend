@@ -14,14 +14,14 @@ import CustomerCompensations from "./pages/CustomerCompensations";
 import CompensationApproval from "./pages/employee/CompensationApproval";
 import ChangePassword from "./pages/ChangePassword";
 import InsuranceRegister from "./pages/InsuranceRegister";
-import InsuranceRegister2New from "./pages/InsuranceRegister2";
+import InsuranceRegister2 from "./pages/InsuranceRegister2";
+import InsuranceRegister3 from "./pages/InsuranceRegister3";
 
 import Option from "./pages/Option";
 import InsuranceTab from "./pages/InsuranceTab";
 import Blog from "./components/Blogs/BlogTemplate";
 import ConsultingRegistration from "./pages/ConsultingRegistration";
-import InsuranceInformation from "./pages/insuranceInformation";
-
+import InsuranceInformation from "./pages/InsuranceInformation";
 function Routes() {
   return (
     <ReactRouterDomRoutes>
@@ -40,7 +40,8 @@ function Routes() {
       <Route path="/employee/list-customer" element={<CustomerList />} />
       <Route path="/change-password" element={<ChangePassword />} />
       <Route path="/insurance/register/:id/info-form" element={<InsuranceRegister />} />
-      <Route path="/insurance/register/:id/health-form" element={<InsuranceRegister2New />} />
+      <Route path="/insurance/register/:id/health-form" element={<InsuranceRegister2 />} />
+      <Route path="/insurance/register/:id/time-options" element={<InsuranceRegister3 />} />
       <Route path="/option" element={<Option />} />
       <Route path="/health-insurance/tab" element={<InsuranceTab />} />
       <Route path="/health-insurance/info/:id" element={<InsuranceInformation />} />

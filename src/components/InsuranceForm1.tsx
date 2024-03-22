@@ -58,8 +58,7 @@ export default function GeneralProfile(): JSX.Element {
 
     onSubmit: async (values) => {
       try {
-        const res = await userServices.updateProfile(values);
-        alert(res.message);
+        await userServices.updateProfile(values);
         navigate(`/insurance/register/${id}/health-form`);
       } catch (error) {
         console.log("update profile Failed");
@@ -158,15 +157,6 @@ export default function GeneralProfile(): JSX.Element {
                   }}
                   {...formik.getFieldProps("birthday")}
                   onChange={formik.handleChange}
-                />
-                <TextField
-                  type="text"
-                  variant="outlined"
-                  label="Tình trạng tài khoản"
-                  fullWidth
-                  disabled
-                  required
-                  defaultValue={"Active"}
                 />
               </Stack>
               <Stack mb={4} mt={3} spacing={3} direction="row" sx={{ mb: 4 }}>

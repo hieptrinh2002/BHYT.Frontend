@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useStore } from "../app/store";
-
 import * as healthIndicatorServices from "../services/healthIndicatorServices";
+import { useNavigate, useParams } from "react-router-dom";
+
 interface IHealthIndicator {
   customerId: number;
   height?: number;
@@ -25,10 +26,11 @@ interface IHealthIndicator {
 export default function HealthIndicator(): JSX.Element {
   const [familyDiseases, setFamilyDiseases] = useState<string | string[]>();
   const [personDiseases, setPersonDiseases] = useState<string | string[]>();
-
   const account = useStore((state) => state.account);
   const [healthIndicator, setHealthIndicator] = useState<IHealthIndicator>();
+  const { id } = useParams();
 
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       customerId: -1,
@@ -57,8 +59,9 @@ export default function HealthIndicator(): JSX.Element {
           values.familyDiseases = "";
           values.personDiseases = "";
         }
-        const res = await healthIndicatorServices.updateHealthIndicator(values);
-        alert(res.message);
+        console.log("value: ", values);
+        await healthIndicatorServices.updateHealthIndicator(values);
+        navigate(`/insurance/register/${id}/time-options`);
       } catch (error) {
         console.log("update health indicator failed");
       }
@@ -238,7 +241,7 @@ export default function HealthIndicator(): JSX.Element {
                 </Typography>
               </Stack>
               <Button variant="outlined" color="secondary" type="submit" sx={{ px: "4rem", py: 1 }}>
-                Cập nhật và tiếp tục
+                Tiếp tục
               </Button>
             </form>
           </Box>

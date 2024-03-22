@@ -121,7 +121,14 @@ function InsurancePolicies(): JSX.Element {
                 if (selectedRowList.length > 1) {
                   alert("chọn một chính sách để yêu cầu bồi thường!");
                 } else {
-                  navigate(`/compensation-request/policy/${selectedRowList[0]}`);
+                  const policy = policies.find((policy) => (policy.id = selectedRowList[0]));
+                  if (policy !== undefined && policy.status == false) {
+                    alert(
+                      "Bạn chua thể yêu cầu bồi thường vì chính sách đang trong trạng thái đang chờ phê duyệt. Bạn chỉ được yêu cầu hổ trợ bồi thường bảo hiểm với các chính sách đã được phê duyệt và ban hành !"
+                    );
+                  } else {
+                    navigate(`/compensation-request/policy/${selectedRowList[0]}`);
+                  }
                 }
               }}
             >
